@@ -8,12 +8,13 @@ class robot_t{
     private:
       int C_inicial_x;
       int C_inicial_y;
+      int *sensores;
     public:
-      robot_t();
+      robot_t(int, int );
       ~robot_t();
       int get_X();
       int get_Y();
-      void RecEuristico();
-}
+      void RecEuristico(cuadrado_t** );
+};
 
 #endif // ROBOT_H
