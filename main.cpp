@@ -31,7 +31,7 @@ int main(){
   cin >>opcion;
   }while (opcion>1 || opcion<0);
   if (opcion ==1){
-   ran=rand()%(n*m);
+   ran=rand()%(n*m -2);
    while (ran >0){
       x=rand()%n;
       y=rand()%m;
