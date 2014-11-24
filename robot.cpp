@@ -1,9 +1,13 @@
+
+
+#include "robot.hpp"
+
 robot_t::robot_t(int x , int y):
   C_inicial_x(x),
   C_inicial_y(y),
   sensores(NULL){
     sensores= new int[4];    
-    for(int i =0;i<4 i++){
+    for(int i =0;i<4 ;i++){
       sensores[i]=0;
     }
     
@@ -21,7 +25,7 @@ int robot_t::get_Y(){
     return C_inicial_y;
 }
 
-void robot_t::RecEuristico(cuadrado_t** ){
+void robot_t::RecEuristico(/*cuadrado_t** square */){
  /*
   En principio cualquier algoritmos que cojamos su solucion
   sera de tipo recursica, es decir que para saber que camino tenemos

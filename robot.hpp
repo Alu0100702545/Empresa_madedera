@@ -14,7 +14,7 @@ class robot_t{
       ~robot_t();
       int get_X();
       int get_Y();
-      void RecEuristico(cuadrado_t** );
+      void RecEuristico(/*cuadrado_t** */);
 };
 
 #endif // ROBOT_H
