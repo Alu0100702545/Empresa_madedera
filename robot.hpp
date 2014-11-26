@@ -3,7 +3,8 @@
 #include <iostream>
 #include <list>
 #include <vector>
-#include <math>
+#include <stdlib.h> 
+#include <cmath>
 using namespace std;
 struct nodo{
     vector <int> camino;
@@ -36,8 +37,8 @@ class robot_t{
       int get_X();
       int get_Y();
       void ordenarlista(list<nodo> *v);
-      void RecEuristico(cuadrado_t*** square, int);
-      
+      void RecEuristico(/*cuadrado_t*** square, int*/);
+      int manhattan(int inicio_x, int inicio_y,int fin_x ,int fin_y);
 };
 
 #endif // ROBOT_H

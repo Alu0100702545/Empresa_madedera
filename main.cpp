@@ -58,8 +58,8 @@ int main(){
 return 0; 
  /* robot_t robot;
   robot.RecEuristico();
-  */
   
+  */
   
   
 }

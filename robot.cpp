@@ -82,7 +82,7 @@ bool compare_nodos (nodo n1, nodo n2)
   
   
 }*/
-void robot_t::RecEuristico(cuadrado_t*** square,int fin){
+void robot_t::RecEuristico(/*cuadrado_t*** square,int fin*/){
   list<nodo> abierta;
   list<nodo> cerrada;
   
@@ -113,7 +113,7 @@ int robot_t::manhattan(int inicio_x, int inicio_y,int fin_x ,int fin_y){
 
 
 
- /*nodo n,n1;
+ /*  nodo n,n1;
   n.costo_estimado=6;
   abierta.push_front(n);
   n.costo_estimado=3;
@@ -129,10 +129,19 @@ int robot_t::manhattan(int inicio_x, int inicio_y,int fin_x ,int fin_y){
   cout <<n1.costo_estimado;
   abierta.sort(compare_nodos);
    n1=abierta.front();
+   cout <<n1.costo_estimado; 
+  abierta.pop_front();
+   n1=abierta.front();
+   cout <<n1.costo_estimado; 
+  abierta.pop_front();
+   n1=abierta.front();
+   cout <<n1.costo_estimado; 
+  abierta.pop_front();
+   n1=abierta.front();
+   cout <<n1.costo_estimado; 
+  abierta.pop_front();
   
-  cout <<n1.costo_estimado;
-  
-  */
+    */
 
  /*
   En principio cualquier algoritmos que cojamos su solucion
