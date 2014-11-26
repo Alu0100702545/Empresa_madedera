@@ -1,7 +1,27 @@
 #ifndef ROBOT_H
 #define ROBOT_H
 #include <iostream>
+#include <list>
+#include <vector>
+#include <math>
 using namespace std;
+struct nodo{
+    vector <int> camino;
+    int costo_estimado;
+  
+};
+
+class cuadrado_t{
+    private:
+      int estado_t;
+      int posicion;
+      //0 robot, 1 paso_natural, 2 Arboles 3 Empresa 5 RecorridoAutomata
+    public:
+    cuadrado_t(int);
+    ~cuadrado_t();
+    int get_estado();
+    void set_estado(int);
+};  
 
 class robot_t{
     
@@ -11,10 +31,13 @@ class robot_t{
       int *sensores;
     public:
       robot_t(int, int );
+      robot_t();
       ~robot_t();
       int get_X();
       int get_Y();
-      void RecEuristico(/*cuadrado_t** */);
+      void ordenarlista(list<nodo> *v);
+      void RecEuristico(cuadrado_t*** square, int);
+      
 };
 
 #endif // ROBOT_H

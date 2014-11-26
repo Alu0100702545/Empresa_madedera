@@ -1,20 +1,6 @@
  
- //CUADRADO
-  //0 robot, 1 paso_natural, 2 Arboles 3 Empresa 4 RecorridoAutomata
+
 #include "tabla.hpp"
- cuadrado_t::cuadrado_t(int estado):
- estado_t(estado){
-   
-   
-}
- cuadrado_t::~cuadrado_t(){}
- int cuadrado_t::get_estado(){
-   return estado_t;
-}
- void cuadrado_t::set_estado(int N_estado){
-   estado_t=N_estado;
-   
-}
 //TABLERO    
 tablero::tablero(int n, int m):
  tabla(NULL),

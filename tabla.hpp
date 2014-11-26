@@ -2,15 +2,7 @@
 #define TABLA_H
 
 #include "robot.hpp"
-class cuadrado_t{
-    private:
-      int estado_t;//0 robot, 1 paso_natural, 2 Arboles 3 Empresa 5 RecorridoAutomata
-    public:
-    cuadrado_t(int);
-    ~cuadrado_t();
-    int get_estado();
-    void set_estado(int);
-};  
+
 class tablero{
     private:
       cuadrado_t ***tabla;

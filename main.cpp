@@ -56,5 +56,10 @@ int main(){
   mapa->mostrar_tablero();
   
 return 0; 
+ /* robot_t robot;
+  robot.RecEuristico();
+  */
+  
+  
   
 }
