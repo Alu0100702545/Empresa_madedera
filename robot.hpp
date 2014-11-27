@@ -28,7 +28,7 @@ class cuadrado_t{
       int posicion;
       //0 robot, 1 paso_natural, 2 Arboles 3 Empresa 5 RecorridoAutomata
     public:
-    cuadrado_t(int);
+    cuadrado_t();
     ~cuadrado_t();
     int get_estado();
     void set_estado(int);
@@ -48,7 +48,7 @@ class robot_t{
       int get_Y();
       bool inicializar_sensores(nodo_t n, int nfilas,int ncolumnas,cuadrado_t*** square);
       //void ordenarlista(list<nodo> *v);
-      nodo_t RecEuristico(cuadrado_t*** square,int fin_x,int fin_y,int nfilas,int ncolumnas);
+      nodo_t RecEuristico(cuadrado_t** square,int fin_x,int fin_y,int nfilas,int ncolumnas);
       int manhattan(int inicio_x, int inicio_y,int fin_x ,int fin_y);
 };
 

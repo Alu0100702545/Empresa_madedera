@@ -32,6 +32,8 @@ int main(){
   }while (opcion>1 || opcion<0);
   if (opcion ==1){
    ran=rand()%(n*m -2);
+   cout << "hola"<<ran<< endl;
+  
    while (ran >0){
       x=rand()%n;
       y=rand()%m;
@@ -55,11 +57,12 @@ int main(){
   mapa->rellenar_paso_natural();
   mapa->mostrar_tablero();
   mapa->marcar_recorridoAutomata();
+  mapa->mostrar_tablero();
 return 0; 
  /* robot_t robot;
   robot.RecEuristico();
   
+
   */
-  
   
 }

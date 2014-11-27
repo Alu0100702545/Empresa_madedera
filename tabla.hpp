@@ -5,7 +5,7 @@
 
 class tablero{
     private:
-      cuadrado_t ***tabla;
+      cuadrado_t **tabla_;
       robot_t *automata;
       int n_filas;
       int n_columnas;

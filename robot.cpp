@@ -2,8 +2,8 @@
 
 #include "robot.hpp"
 //cuadrado_t
-cuadrado_t::cuadrado_t(int estado):
- estado_t(estado){
+cuadrado_t::cuadrado_t():
+ estado_t(-1){
     //CUADRADO
   //0 robot, 1 paso_natural, 2 Arboles 3 Empresa 4 RecorridoAutomata
    
@@ -61,7 +61,7 @@ bool compare_nodos (nodo_t n1, nodo_t n2)
 
 
 
-nodo_t robot_t::RecEuristico(cuadrado_t*** square,int fin_x,int fin_y,int nfilas,int ncolumnas ){
+nodo_t robot_t::RecEuristico(cuadrado_t** square,int fin_x,int fin_y,int nfilas,int ncolumnas ){
   
   
   cout<<"puta6";
