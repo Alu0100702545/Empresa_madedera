@@ -62,18 +62,32 @@ bool compare_nodos (nodo_t n1, nodo_t n2)
 
 
 nodo_t robot_t::RecEuristico(cuadrado_t*** square,int fin_x,int fin_y,int nfilas,int ncolumnas ){
+  
+  
+  cout<<"puta6";
+  /*
+   
+  
   list<nodo_t> abierta;
   list<nodo_t> cerrada;
-  
-  nodo_t aux,aux2,defaul;
+   cout<<"puta5";
+  nodo_t aux,aux2,defaul,inicio;
   defaul.costo_estimado=-50;
   posicion p1;
+  p1.x=C_inicial_x;
+  p1.y=C_inicial_y;
+  cout<<"puta4";
+  inicio.camino.push_back(p1);
+  inicio.costo_estimado=manhattan(p1.x,p1.y,fin_x,fin_y);
+  
+  abierta.push_front(inicio);
+  cout<<"puta4";
   while (!abierta.empty() ||(abierta.front().camino.at(abierta.front().camino.size()-1).x==fin_x && abierta.front().camino.at(abierta.front().camino.size()-1).y==fin_y)){
     aux=abierta.front();
     abierta.pop_front();
     cerrada.push_front(aux);
     //buscar y añadir las trayectorias
-    
+    cout<<"puta1";
    if(inicializar_sensores(aux, nfilas,ncolumnas, square)) {
     if(sensores[1]==0 && (aux.camino.at(aux.camino.size()-1).y !=aux.camino.at(aux.camino.size()-2).y || aux.camino.at(aux.camino.size()-1).x+1 !=aux.camino.at(aux.camino.size()-2).x)){
       aux2=aux;
@@ -90,7 +104,7 @@ nodo_t robot_t::RecEuristico(cuadrado_t*** square,int fin_x,int fin_y,int nfilas
       aux2.camino.push_back(p1);
       aux2.costo_estimado+=manhattan(p1.x,p1.y,fin_x,fin_y);
     }
-    
+    cout<<"puta2";
     if(sensores[3]==0&&(aux.camino.at(aux.camino.size()-1).y-1 !=aux.camino.at(aux.camino.size()-2).y || aux.camino.at(aux.camino.size()-1).x !=aux.camino.at(aux.camino.size()-2).x)){
       aux2=aux;
       p1.x=aux.camino.at(aux.camino.size()-1).y-1; 
@@ -105,6 +119,7 @@ nodo_t robot_t::RecEuristico(cuadrado_t*** square,int fin_x,int fin_y,int nfilas
       aux2.camino.push_back(p1);
       aux2.costo_estimado+=manhattan(p1.x,p1.y,fin_x,fin_y);
     }
+    cout<<"puta";
     //ordenacion de la lista
     abierta.sort(compare_nodos);
     //eliminar duplicados de cerrada y abierta   
@@ -120,7 +135,7 @@ nodo_t robot_t::RecEuristico(cuadrado_t*** square,int fin_x,int fin_y,int nfilas
   }else 
     cout <<"no se ha encontrado ningun camino"<< endl;
     return defaul;
-  
+  */
 }
 bool robot_t::inicializar_sensores(nodo_t n, int nfilas,int ncolumnas,cuadrado_t*** square){
   //int aux=nodo.camino.at[0].x;

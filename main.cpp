@@ -54,7 +54,7 @@ int main(){
   }
   mapa->rellenar_paso_natural();
   mapa->mostrar_tablero();
-  
+  mapa->marcar_recorridoAutomata();
 return 0; 
  /* robot_t robot;
   robot.RecEuristico();

@@ -9,6 +9,8 @@ class tablero{
       robot_t *automata;
       int n_filas;
       int n_columnas;
+      int fin_x;
+      int fin_y;
    public:
       tablero(int,int);
       ~tablero();
