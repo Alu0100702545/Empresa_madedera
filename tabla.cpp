@@ -70,8 +70,8 @@ tablero::tablero(int n, int m):
    
 }
 void tablero::mostrar_tablero(){
-      cout<< "80"<< endl;
-     /*for(int i=0;i<n_filas;i++){
+      
+     for(int i=0;i<n_filas;i++){
 	for(int j=0;j<n_columnas;j++){
 	  
 	  if(tabla_[i][j].get_estado()==-1)
@@ -97,16 +97,17 @@ void tablero::mostrar_tablero(){
       for(int p=0;p<n_columnas;p++)
 	  cout << "- ";
       cout<< endl; 
-     }*/
+     }
      
-     cout << tabla_[2][2].get_estado();
-    
+   
 }
 
 
  void  tablero::marcar_recorridoAutomata(){
-   nodo_t auxiliar;
-  automata->RecEuristico(tabla_,fin_x,fin_y,n_filas,n_columnas); 
+   //nodo_t auxiliar;
+   //cuadrado_t** aux;
+   //cout << "gay"<< endl;
+   automata->RecEuristico(tabla_,fin_x,fin_y,n_filas,n_columnas); 
    //cout << "gay"<< endl;
    //for (int i=0;i <auxiliar.camino.size();i++)
      //tabla[auxiliar.camino.at(i).x][auxiliar.camino.at(i).y]->set_estado(4);

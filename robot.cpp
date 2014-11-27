@@ -61,33 +61,26 @@ bool compare_nodos (nodo_t n1, nodo_t n2)
 
 
 
-nodo_t robot_t::RecEuristico(cuadrado_t** square,int fin_x,int fin_y,int nfilas,int ncolumnas ){
-  
-  
-  cout<<"puta6";
-  /*
-   
-  
+void robot_t::RecEuristico(cuadrado_t** square,int fin_x,int fin_y,int nfilas,int ncolumnas ){
   list<nodo_t> abierta;
   list<nodo_t> cerrada;
-   cout<<"puta5";
+   cout<<"cosa5";
   nodo_t aux,aux2,defaul,inicio;
   defaul.costo_estimado=-50;
   posicion p1;
   p1.x=C_inicial_x;
   p1.y=C_inicial_y;
-  cout<<"puta4";
+  cout<<"cosa4";
   inicio.camino.push_back(p1);
   inicio.costo_estimado=manhattan(p1.x,p1.y,fin_x,fin_y);
   
   abierta.push_front(inicio);
-  cout<<"puta4";
+  
   while (!abierta.empty() ||(abierta.front().camino.at(abierta.front().camino.size()-1).x==fin_x && abierta.front().camino.at(abierta.front().camino.size()-1).y==fin_y)){
     aux=abierta.front();
     abierta.pop_front();
     cerrada.push_front(aux);
     //buscar y añadir las trayectorias
-    cout<<"puta1";
    if(inicializar_sensores(aux, nfilas,ncolumnas, square)) {
     if(sensores[1]==0 && (aux.camino.at(aux.camino.size()-1).y !=aux.camino.at(aux.camino.size()-2).y || aux.camino.at(aux.camino.size()-1).x+1 !=aux.camino.at(aux.camino.size()-2).x)){
       aux2=aux;
@@ -131,41 +124,41 @@ nodo_t robot_t::RecEuristico(cuadrado_t** square,int fin_x,int fin_y,int nfilas,
   if(abierta.front().camino.at(abierta.front().camino.size()-1).x==fin_x && abierta.front().camino.at(abierta.front().camino.size()-1).y==fin_y){
     cout <<"camino optimo encontrado"<<endl;
     
-    return abierta.front();
+    //return abierta.front();
   }else 
     cout <<"no se ha encontrado ningun camino"<< endl;
-    return defaul;
-  */
+    //return defaul;
+  
 }
-bool robot_t::inicializar_sensores(nodo_t n, int nfilas,int ncolumnas,cuadrado_t*** square){
+bool robot_t::inicializar_sensores(nodo_t n, int nfilas,int ncolumnas,cuadrado_t** square){
   //int aux=nodo.camino.at[0].x;
   /*
    Con esta funcion contemplo para que no se salga del tablado marcado con -1
    
    */
   if (n.camino.at(n.camino.size()-1).x+1 < nfilas &&n.camino.at(n.camino.size()-1).y < ncolumnas){
-    if (square[n.camino.at(n.camino.size()-1).x+1][n.camino.at(n.camino.size()-1).y]->get_estado()==2)
+    if (square[n.camino.at(n.camino.size()-1).x+1][n.camino.at(n.camino.size()-1).y].get_estado()==2)
       sensores[1]=1;
     else
       sensores[1]=0;
   }else
       sensores[1]=-1;
   if (n.camino.at(n.camino.size()-1).x-1 < nfilas &&n.camino.at(n.camino.size()-1).y < ncolumnas){
-    if (square[n.camino.at(n.camino.size()-1).x-1][n.camino.at(n.camino.size()-1).y]->get_estado()==2)
+    if (square[n.camino.at(n.camino.size()-1).x-1][n.camino.at(n.camino.size()-1).y].get_estado()==2)
       sensores[0]=1;
     else
       sensores[0]=0;
   }else
       sensores[0]=-1;
   if (n.camino.at(n.camino.size()-1).x < nfilas && n.camino.at(n.camino.size()-1).y-1 < ncolumnas){
-    if (square[n.camino.at(n.camino.size()-1).x][n.camino.at(n.camino.size()-1).y-1]->get_estado()==2)
+    if (square[n.camino.at(n.camino.size()-1).x][n.camino.at(n.camino.size()-1).y-1].get_estado()==2)
       sensores[3]=1;
     else
       sensores[3]=0;
   }else
       sensores[3]=-1;
   if (n.camino.at(n.camino.size()-1).x < nfilas &&n.camino.at(n.camino.size()-1).y+1 < ncolumnas){
-    if (square[n.camino.at(n.camino.size()-1).x][n.camino.at(n.camino.size()-1).y+1]->get_estado()==2)
+    if (square[n.camino.at(n.camino.size()-1).x][n.camino.at(n.camino.size()-1).y+1].get_estado()==2)
       sensores[2]=1;
     else
       sensores[2]=0;

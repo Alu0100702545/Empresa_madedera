@@ -32,9 +32,7 @@ int main(){
   }while (opcion>1 || opcion<0);
   if (opcion ==1){
    ran=rand()%(n*m -2);
-   cout << "hola"<<ran<< endl;
-  
-   while (ran >0){
+    while (ran >0){
       x=rand()%n;
       y=rand()%m;
       opt=mapa->introducir_arboles(x,y);

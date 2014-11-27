@@ -46,9 +46,9 @@ class robot_t{
       ~robot_t();
       int get_X();
       int get_Y();
-      bool inicializar_sensores(nodo_t n, int nfilas,int ncolumnas,cuadrado_t*** square);
+      bool inicializar_sensores(nodo_t n, int nfilas,int ncolumnas,cuadrado_t** square);
       //void ordenarlista(list<nodo> *v);
-      nodo_t RecEuristico(cuadrado_t** square,int fin_x,int fin_y,int nfilas,int ncolumnas);
+      void RecEuristico(cuadrado_t** square,int fin_x,int fin_y,int nfilas,int ncolumnas);
       int manhattan(int inicio_x, int inicio_y,int fin_x ,int fin_y);
 };
 
