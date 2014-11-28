@@ -25,8 +25,7 @@ struct nodo_t{
 class cuadrado_t{
     private:
       int estado_t;
-      int posicion;
-      //0 robot, 1 paso_natural, 2 Arboles 3 Empresa 5 RecorridoAutomata
+        //0 robot, 1 paso_natural, 2 Arboles 3 Empresa 5 RecorridoAutomata
     public:
     cuadrado_t();
     ~cuadrado_t();
@@ -48,8 +47,15 @@ class robot_t{
       int get_Y();
       bool inicializar_sensores(nodo_t n, int nfilas,int ncolumnas,cuadrado_t** square);
       //void ordenarlista(list<nodo> *v);
-      void RecEuristico(cuadrado_t** square,int fin_x,int fin_y,int nfilas,int ncolumnas);
+      nodo_t RecEuristico(cuadrado_t** square,int fin_x,int fin_y,int nfilas,int ncolumnas);
       int manhattan(int inicio_x, int inicio_y,int fin_x ,int fin_y);
+      bool is_outrange(int x, int y,int nfilas,int ncolumnas);
+      void del_duplicate(nodo_t n,list<nodo_t> &abierta);
+      bool del_duplicate_dual(nodo_t n,list<nodo_t> &cerrada);
+      void busqueda_duplicate(nodo_t n,list<nodo_t> &abierta);
+      bool is_invector(nodo_t n, int x, int y);
+      void peores_espectativas(list<nodo_t> &abierta);
+
 };
 
 #endif // ROBOT_H

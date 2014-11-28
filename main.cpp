@@ -56,6 +56,8 @@ int main(){
   mapa->mostrar_tablero();
   mapa->marcar_recorridoAutomata();
   mapa->mostrar_tablero();
+  //int algo;
+  //cin >> algo;
 return 0; 
  /* robot_t robot;
   robot.RecEuristico();

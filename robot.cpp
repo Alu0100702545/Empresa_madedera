@@ -57,78 +57,116 @@ bool compare_nodos (nodo_t n1, nodo_t n2)
 
   return ( n1.costo_estimado < n2.costo_estimado);
 }
+bool delet_nodos(nodo_t n1, nodo_t n2){
+	int x1=n1.camino.at(n1.camino.size() - 1).x;
+	int y1=n1.camino.at(n1.camino.size() - 1).y;
+	int x2=n2.camino.at(n2.camino.size() - 1).x;
+	int y2=n2.camino.at(n2.camino.size() - 1).y;
+	int costo1=n1.costo_estimado;
+	int costo2=n2.costo_estimado;
+	return(x1==x2&& y1==y2 && costo1 >costo2);
+}
 
 
 
 
-void robot_t::RecEuristico(cuadrado_t** square,int fin_x,int fin_y,int nfilas,int ncolumnas ){
+nodo_t robot_t::RecEuristico(cuadrado_t** square,int fin_x,int fin_y,int nfilas,int ncolumnas ){
   list<nodo_t> abierta;
   list<nodo_t> cerrada;
-   cout<<"cosa5";
+  int sz = abierta.size();
+  bool algo,algo2;
   nodo_t aux,aux2,defaul,inicio;
   defaul.costo_estimado=-50;
   posicion p1;
   p1.x=C_inicial_x;
   p1.y=C_inicial_y;
-  cout<<"cosa4";
   inicio.camino.push_back(p1);
   inicio.costo_estimado=manhattan(p1.x,p1.y,fin_x,fin_y);
-  
+  //int xini=abierta.front().camino.at(abierta.front().camino.size()-1).x;
+  //int yini=abierta.front().camino.at(abierta.front().camino.size()-1).y;
   abierta.push_front(inicio);
-  
-  while (!abierta.empty() ||(abierta.front().camino.at(abierta.front().camino.size()-1).x==fin_x && abierta.front().camino.at(abierta.front().camino.size()-1).y==fin_y)){
+do{
     aux=abierta.front();
     abierta.pop_front();
+    sz = abierta.size();
     cerrada.push_front(aux);
+
+    int yy = aux.camino.at(aux.camino.size() - 1).y;
+    int xx= aux.camino.at(aux.camino.size()-1).x;
     //buscar y añadir las trayectorias
    if(inicializar_sensores(aux, nfilas,ncolumnas, square)) {
-    if(sensores[1]==0 && (aux.camino.at(aux.camino.size()-1).y !=aux.camino.at(aux.camino.size()-2).y || aux.camino.at(aux.camino.size()-1).x+1 !=aux.camino.at(aux.camino.size()-2).x)){
-      aux2=aux;
-      p1.x=aux.camino.at(aux.camino.size()-1).y; 
-      p1.y=aux.camino.at(aux.camino.size()-1).x +1;
-      aux2.camino.push_back(p1);
-      aux2.costo_estimado+=manhattan(p1.x,p1.y,fin_x,fin_y);
-      
+	   //int yy2= aux.camino.at(aux.camino.size()-2).y;
+  	   //int xx2= aux.camino.at(aux.camino.size()-2).x;
+	   //int yy2= aux.camino.at(aux.camino.size()-2).y;
+	   //int xx2= aux.camino.at(aux.camino.size()-2).x;
+
+	   if(sensores[1]==0){
+
+			   if(is_invector(aux, xx+1, yy)==false){
+				   aux2=aux;
+			   	   p1.x=xx+1;
+			   	   p1.y=yy;
+			   	   aux2.camino.push_back(p1);
+			   	   aux2.costo_estimado+=manhattan(p1.x,p1.y,fin_x,fin_y);
+			   	   abierta.push_front(aux2);
+			   }
+	   }
+	   if(sensores[0]==0){
+
+			   if(is_invector(aux, xx-1, yy)==false){
+				   aux2=aux;
+			   	   p1.x=xx-1;
+			   	   p1.y=yy;
+			   	   aux2.camino.push_back(p1);
+			   	   aux2.costo_estimado+=manhattan(p1.x,p1.y,fin_x,fin_y);
+			   	   abierta.push_front(aux2);
+			   }
+	   }
+
+	   if(sensores[3]==0){
+		    if(is_invector(aux, xx, yy-1)==false){
+				   aux2=aux;
+			   	   p1.x=xx;
+			   	   p1.y=yy-1;
+			   	   aux2.camino.push_back(p1);
+			   	   aux2.costo_estimado+=manhattan(p1.x,p1.y,fin_x,fin_y);
+			   	   abierta.push_front(aux2);
+			}
+	   }
+	   if(sensores[2]==0){
+		     if(is_invector(aux, xx, yy+1)==false){
+				   aux2=aux;
+			   	   p1.x=xx;
+			   	   p1.y=yy+1;
+			   	   aux2.camino.push_back(p1);
+			   	   aux2.costo_estimado+=manhattan(p1.x,p1.y,fin_x,fin_y);
+			   	   abierta.push_front(aux2);
+		     }
+	   }
+
+
+		   abierta.sort(compare_nodos);
+		   if(abierta.size()>4)
+		      peores_espectativas(abierta);
+
+    }else{
+    	//mirar la lista por si esta vacio
+    	algo= abierta.empty();
+    	if (!algo)
+    		abierta.pop_front();
+
     }
-    if(sensores[0]==0 &&(aux.camino.at(aux.camino.size()-1).y !=aux.camino.at(aux.camino.size()-2).y || aux.camino.at(aux.camino.size()-1).x-1 !=aux.camino.at(aux.camino.size()-2).x)){
-      aux2=aux;
-      p1.x=aux.camino.at(aux.camino.size()-1).y; 
-      p1.y=aux.camino.at(aux.camino.size()-1).x -1;
-      aux2.camino.push_back(p1);
-      aux2.costo_estimado+=manhattan(p1.x,p1.y,fin_x,fin_y);
-    }
-    cout<<"puta2";
-    if(sensores[3]==0&&(aux.camino.at(aux.camino.size()-1).y-1 !=aux.camino.at(aux.camino.size()-2).y || aux.camino.at(aux.camino.size()-1).x !=aux.camino.at(aux.camino.size()-2).x)){
-      aux2=aux;
-      p1.x=aux.camino.at(aux.camino.size()-1).y-1; 
-      p1.y=aux.camino.at(aux.camino.size()-1).x;
-      aux2.camino.push_back(p1);
-      aux2.costo_estimado+=manhattan(p1.x,p1.y,fin_x,fin_y);
-    }
-    if(sensores[2]==0&&(aux.camino.at(aux.camino.size()-1).y+1 !=aux.camino.at(aux.camino.size()-2).y || aux.camino.at(aux.camino.size()-1).x !=aux.camino.at(aux.camino.size()-2).x)){
-      aux2=aux;
-      p1.x=aux.camino.at(aux.camino.size()-1).y+1; 
-      p1.y=aux.camino.at(aux.camino.size()-1).x;
-      aux2.camino.push_back(p1);
-      aux2.costo_estimado+=manhattan(p1.x,p1.y,fin_x,fin_y);
-    }
-    cout<<"puta";
-    //ordenacion de la lista
-    abierta.sort(compare_nodos);
-    //eliminar duplicados de cerrada y abierta   
-    }else
-      abierta.pop_front();
-      
-    
-  }
-  if(abierta.front().camino.at(abierta.front().camino.size()-1).x==fin_x && abierta.front().camino.at(abierta.front().camino.size()-1).y==fin_y){
+
+  } while (!abierta.empty() &&(abierta.front().camino.at(abierta.front().camino.size()-1).x !=fin_x || abierta.front().camino.at(abierta.front().camino.size()-1).y!=fin_y));
+
+  if(!abierta.empty() && abierta.front().camino.at(abierta.front().camino.size()-1).x==fin_x && abierta.front().camino.at(abierta.front().camino.size()-1).y==fin_y){
     cout <<"camino optimo encontrado"<<endl;
     
-    //return abierta.front();
-  }else 
+    return abierta.front();
+  }else{
     cout <<"no se ha encontrado ningun camino"<< endl;
-    //return defaul;
-  
+    return defaul;
+  }
 }
 bool robot_t::inicializar_sensores(nodo_t n, int nfilas,int ncolumnas,cuadrado_t** square){
   //int aux=nodo.camino.at[0].x;
@@ -136,102 +174,139 @@ bool robot_t::inicializar_sensores(nodo_t n, int nfilas,int ncolumnas,cuadrado_t
    Con esta funcion contemplo para que no se salga del tablado marcado con -1
    
    */
-  if (n.camino.at(n.camino.size()-1).x+1 < nfilas &&n.camino.at(n.camino.size()-1).y < ncolumnas){
-    if (square[n.camino.at(n.camino.size()-1).x+1][n.camino.at(n.camino.size()-1).y].get_estado()==2)
-      sensores[1]=1;
-    else
+
+	bool algo;
+	int xx = n.camino.at(n.camino.size()-1).x;
+    int yy = n.camino.at(n.camino.size()-1).y;
+  if (!is_outrange(xx+1,yy,nfilas,ncolumnas)){
+    if (square[xx+1][yy].get_estado()!=2)
       sensores[1]=0;
+    else
+      sensores[1]=1;
   }else
       sensores[1]=-1;
-  if (n.camino.at(n.camino.size()-1).x-1 < nfilas &&n.camino.at(n.camino.size()-1).y < ncolumnas){
-    if (square[n.camino.at(n.camino.size()-1).x-1][n.camino.at(n.camino.size()-1).y].get_estado()==2)
-      sensores[0]=1;
-    else
+
+  if (!is_outrange(xx-1,yy,nfilas,ncolumnas)){
+	  if (square[xx-1][yy].get_estado()!=2)
       sensores[0]=0;
+    else
+      sensores[0]=1;
   }else
       sensores[0]=-1;
-  if (n.camino.at(n.camino.size()-1).x < nfilas && n.camino.at(n.camino.size()-1).y-1 < ncolumnas){
-    if (square[n.camino.at(n.camino.size()-1).x][n.camino.at(n.camino.size()-1).y-1].get_estado()==2)
-      sensores[3]=1;
-    else
+  if (!is_outrange(xx,yy-1,nfilas,ncolumnas)){
+    if (square[xx][yy-1].get_estado()!=2)
       sensores[3]=0;
-  }else
-      sensores[3]=-1;
-  if (n.camino.at(n.camino.size()-1).x < nfilas &&n.camino.at(n.camino.size()-1).y+1 < ncolumnas){
-    if (square[n.camino.at(n.camino.size()-1).x][n.camino.at(n.camino.size()-1).y+1].get_estado()==2)
-      sensores[2]=1;
     else
-      sensores[2]=0;
+      sensores[3]=1;
   }else
       sensores[3]=-1;
+  if (!is_outrange(xx,yy+1,nfilas,ncolumnas)){
+    if (square[xx][yy+1].get_estado()!=2)
+      sensores[2]=0;
+    else
+      sensores[2]=1;
+  }else
+      sensores[2]=-1;
   int sum=abs(sensores[0])+abs(sensores[1])+abs(sensores[2])+abs(sensores[3]);
- return sum < 3;
+ return sum <4;
   
   
   
 }
+
+
+void robot_t::peores_espectativas(list<nodo_t> &abierta){
+	int count=1;
+	nodo_t aux,aux2;
+	aux=abierta.back();
+	aux2=abierta.back();
+	while(aux2.costo_estimado==aux.costo_estimado && abierta.size()>4){
+		abierta.pop_back();
+		aux2=abierta.back();
+	}
+
+}
+
 int robot_t::manhattan(int inicio_x, int inicio_y,int fin_x ,int fin_y){
   return abs(inicio_x-fin_x)+abs(inicio_y-fin_y);
 }
 
+bool robot_t::is_outrange(int x,int y,int nfilas,int ncolumnas){
+	return x<0 || y<0 || x >= nfilas || y >= ncolumnas;
+}
+bool robot_t::is_invector(nodo_t n, int x, int y){
+if(!n.camino.empty()){
+	for (unsigned int i=0;i < n.camino.size();i++){
+		if(n.camino.at(i).x ==x && n.camino.at(i).y==y){
+			return true;
+		}
+	}
+	return false;
+}
+return false;
 
 
-/*void robot_t::ordenarlista(list<nodo> *v){
-  nodo aux;
-  int ax,ax1
-  //list<nodo>::iterator ax;
-  //list<nodo>::iterator ax1;
-  for(ax=1;ax<v->size(); ax++) {
-    aux=v->at(i);
-    ax1=i-1;
-    while(ax1>=0 && aux <v->at(ax1)){
-      v->at(ax1+1)=v->at(ax1);
-      ax1--;
-    }
-   v->at(ax1+1)= aux
-  }
-  
-  
-  
-}*/
- /*  nodo n,n1;
-  n.costo_estimado=6;
-  abierta.push_front(n);
-  n.costo_estimado=3;
-  abierta.push_front(n);
-  n.costo_estimado=5;
-  abierta.push_front(n) ;
-  n.costo_estimado=7;
-  abierta.push_front(n) ;
-  n.costo_estimado=4;
-  abierta.push_front(n) ;
-  
-  n1=abierta.front();
-  cout <<n1.costo_estimado;
-  abierta.sort(compare_nodos);
-   n1=abierta.front();
-   cout <<n1.costo_estimado; 
-  abierta.pop_front();
-   n1=abierta.front();
-   cout <<n1.costo_estimado; 
-  abierta.pop_front();
-   n1=abierta.front();
-   cout <<n1.costo_estimado; 
-  abierta.pop_front();
-   n1=abierta.front();
-   cout <<n1.costo_estimado; 
-  abierta.pop_front();
-  
-    */
+}
 
- /*
-  En principio cualquier algoritmos que cojamos su solucion
-  sera de tipo recursica, es decir que para saber que camino tenemos
-  que cojer iremos llamando a la funcion segun en numero de posibles
-  caminos que haya(hasta un maximo de 4 caminos(norte,sur, este, oeste)
-  si existiera el caso) para maximizar el rendimiento usaremos una segunda( aun no
-  implementada) que sera para saber que casillas han sido visitadas para no volver a
-  recorrer caminos que ya hemos recorridos. Aun no he pensado como veremos cual
-  es el caminos mas optimo ni como haremos para guardar las posiciones(posiblemente
-  lo haremos con colas (queue) o listas.   
-  */ 
+void robot_t::del_duplicate(nodo_t n ,list<nodo_t> &abierta){
+list<nodo_t> ::iterator open;
+int x,xx, y,yy;
+x=n.camino.at(n.camino.size()-1).x;
+y=n.camino.at(n.camino.size()-1).y;
+//.camino.at(abierta.front().camino.size()-1).x=
+nodo_t aux;
+	for (open=abierta.begin();open !=abierta.end();open++){
+			aux=*open;
+			xx=aux.camino.at(aux.camino.size()-1).x;
+			yy=aux.camino.at(aux.camino.size()-1).y;
+		if (x==xx && y==yy){
+			abierta.erase(open);
+			break;
+		}
+	}
+}
+void robot_t::busqueda_duplicate(nodo_t n ,list<nodo_t> &abierta){
+	list<nodo_t> ::iterator open;
+	int x,xx, y,yy;
+	nodo_t aux;
+	x=n.camino.at(n.camino.size()-1).x;
+	y=n.camino.at(n.camino.size()-1).y;
+	int count=0;
+	for (open=abierta.begin();open !=abierta.end();open++){
+				aux=*open;
+				xx=aux.camino.at(aux.camino.size()-1).x;
+				yy=aux.camino.at(aux.camino.size()-1).y;
+			if (x==xx && y==yy){
+				count++;
+			}
+	}
+	for (int i=0;i<count;i++)
+		del_duplicate(n,abierta);
+
+
+
+
+}
+bool robot_t::del_duplicate_dual(nodo_t n,list<nodo_t> &cerrada){
+	list<nodo_t> ::iterator close;
+	int x,xx, y,yy, coste,coste1;
+	//.camino.at(abierta.front().camino.size()-1).x=
+	x=n.camino.at(n.camino.size()-1).x;
+	y=n.camino.at(n.camino.size()-1).y;
+	coste1=n.costo_estimado;
+	nodo_t aux;
+		for (close=cerrada.begin();close !=cerrada.end();close++){
+				aux=*close;
+				x=aux.camino.at(aux.camino.size()-1).x;
+				y=aux.camino.at(aux.camino.size()-1).y;
+				coste=aux.costo_estimado;
+				if (x==xx && y==yy && coste <coste1){
+					return true;
+				}
+
+		}
+		return false;
+}
+
+
+
