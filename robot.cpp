@@ -155,18 +155,17 @@ do{
 			 abierta.pop_front();
 			 algo=del_duplicate(aux, abierta);
 			 abierta.push_front(aux);
-			}else
-				algo=false;
+			}
 		  }while(algo==true);
 		   do{
 		   	if (!abierta.empty()){
 		   		aux=abierta.front();
 		   		abierta.pop_front();
-		   		algo=del_duplicate(aux, cerrada);
-		   		if (algo ==false)
+		   		algo2=del_duplicate_dual(aux, cerrada);
+		   		if (algo2 ==false)
 		   			abierta.push_front(aux);
 		   	}
-		   }while(algo==true);
+		   }while(algo2==true);
 
 
 
