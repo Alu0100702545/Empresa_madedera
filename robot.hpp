@@ -50,7 +50,7 @@ class robot_t{
       nodo_t RecEuristico(cuadrado_t** square,int fin_x,int fin_y,int nfilas,int ncolumnas);
       int manhattan(int inicio_x, int inicio_y,int fin_x ,int fin_y);
       bool is_outrange(int x, int y,int nfilas,int ncolumnas);
-      void del_duplicate(nodo_t n,list<nodo_t> &abierta);
+      bool del_duplicate(nodo_t n,list<nodo_t> &abierta);
       bool del_duplicate_dual(nodo_t n,list<nodo_t> &cerrada);
       void busqueda_duplicate(nodo_t n,list<nodo_t> &abierta);
       bool is_invector(nodo_t n, int x, int y);

@@ -73,7 +73,7 @@ bool delet_nodos(nodo_t n1, nodo_t n2){
 nodo_t robot_t::RecEuristico(cuadrado_t** square,int fin_x,int fin_y,int nfilas,int ncolumnas ){
   list<nodo_t> abierta;
   list<nodo_t> cerrada;
-  int sz = abierta.size();
+  //int sz = abierta.size();
   bool algo,algo2;
   nodo_t aux,aux2,defaul,inicio;
   defaul.costo_estimado=-50;
@@ -88,7 +88,7 @@ nodo_t robot_t::RecEuristico(cuadrado_t** square,int fin_x,int fin_y,int nfilas,
 do{
     aux=abierta.front();
     abierta.pop_front();
-    sz = abierta.size();
+    //sz = abierta.size();
     cerrada.push_front(aux);
 
     int yy = aux.camino.at(aux.camino.size() - 1).y;
@@ -146,13 +146,34 @@ do{
 
 
 		   abierta.sort(compare_nodos);
-		   if(abierta.size()>4)
-		      peores_espectativas(abierta);
+		  // if(abierta.size()>4)
+		      //peores_espectativas(abierta);
+
+		   do{
+			if (!abierta.empty()){
+			 aux=abierta.front();
+			 abierta.pop_front();
+			 algo=del_duplicate(aux, abierta);
+			 abierta.push_front(aux);
+			}else
+				algo=false;
+		  }while(algo==true);
+		   do{
+		   	if (!abierta.empty()){
+		   		aux=abierta.front();
+		   		abierta.pop_front();
+		   		algo=del_duplicate(aux, cerrada);
+		   		if (algo ==false)
+		   			abierta.push_front(aux);
+		   	}
+		   }while(algo==true);
+
+
 
     }else{
     	//mirar la lista por si esta vacio
-    	algo= abierta.empty();
-    	if (!algo)
+    	//algo= abierta.empty();
+    	if (!abierta.empty())
     		abierta.pop_front();
 
     }
@@ -216,7 +237,7 @@ bool robot_t::inicializar_sensores(nodo_t n, int nfilas,int ncolumnas,cuadrado_t
 
 
 void robot_t::peores_espectativas(list<nodo_t> &abierta){
-	int count=1;
+	//int count=1;
 	nodo_t aux,aux2;
 	aux=abierta.back();
 	aux2=abierta.back();
@@ -248,7 +269,7 @@ return false;
 
 }
 
-void robot_t::del_duplicate(nodo_t n ,list<nodo_t> &abierta){
+bool robot_t::del_duplicate(nodo_t n ,list<nodo_t> &abierta){
 list<nodo_t> ::iterator open;
 int x,xx, y,yy;
 x=n.camino.at(n.camino.size()-1).x;
@@ -261,9 +282,10 @@ nodo_t aux;
 			yy=aux.camino.at(aux.camino.size()-1).y;
 		if (x==xx && y==yy){
 			abierta.erase(open);
-			break;
+			return true;
 		}
 	}
+	return false;
 }
 void robot_t::busqueda_duplicate(nodo_t n ,list<nodo_t> &abierta){
 	list<nodo_t> ::iterator open;
@@ -297,8 +319,8 @@ bool robot_t::del_duplicate_dual(nodo_t n,list<nodo_t> &cerrada){
 	nodo_t aux;
 		for (close=cerrada.begin();close !=cerrada.end();close++){
 				aux=*close;
-				x=aux.camino.at(aux.camino.size()-1).x;
-				y=aux.camino.at(aux.camino.size()-1).y;
+				xx=aux.camino.at(aux.camino.size()-1).x;
+				yy=aux.camino.at(aux.camino.size()-1).y;
 				coste=aux.costo_estimado;
 				if (x==xx && y==yy && coste <coste1){
 					return true;
